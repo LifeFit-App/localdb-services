@@ -12,8 +12,8 @@ public class LifeFitPublisher {
 
 	public static void main(String[] args) throws IllegalArgumentException, IOException, URISyntaxException{
 		
-		System.setProperty("javax.xml.bind.JAXBContext", 
-                "com.sun.xml.internal.bind.v2.ContextFactory"); 
+//		System.setProperty("javax.xml.bind.JAXBContext", 
+//                "com.sun.xml.internal.bind.v2.ContextFactory"); 
 		
 		String PROTOCOL = "http://";
         String HOSTNAME = InetAddress.getLocalHost().getHostAddress();
