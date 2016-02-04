@@ -11,7 +11,11 @@ import javax.xml.ws.Endpoint;
 public class LifeFitPublisher {
 
 	public static void main(String[] args) throws IllegalArgumentException, IOException, URISyntaxException{
-        String PROTOCOL = "http://";
+		
+		System.setProperty("javax.xml.bind.JAXBContext", 
+                "com.sun.xml.internal.bind.v2.ContextFactory"); 
+		
+		String PROTOCOL = "http://";
         String HOSTNAME = InetAddress.getLocalHost().getHostAddress();
         if (HOSTNAME.equals("127.0.0.1"))
         {
