@@ -8,10 +8,15 @@
 		<class>com.lifefit.soap.model.Measure</class>
 		<class>com.lifefit.soap.model.Activity</class>
 		<class>com.lifefit.soap.model.Goal</class>
-		<class>com.lifefit.soap.model.HealthMeasureHistory</class>		
+		<class>com.lifefit.soap.model.HealthMeasureHistory</class>
+		<class>com.lifefit.soap.model.APIConfig</class>		
 		<properties>  
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_b1b6a6c4a8b6258" />
+			<!-- property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lifefit" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="" /-->
+                        
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_b1b6a6c4a8b6258" />
 			<property name="javax.persistence.jdbc.user" value="b115785faf16db" />
             <property name="javax.persistence.jdbc.password" value="185dc84c" />
             

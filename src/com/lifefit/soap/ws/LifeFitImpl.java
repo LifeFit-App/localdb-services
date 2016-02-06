@@ -2,6 +2,7 @@ package com.lifefit.soap.ws;
 
 import java.util.List;
 
+import com.lifefit.soap.model.APIConfig;
 import com.lifefit.soap.model.Goal;
 import com.lifefit.soap.model.HealthMeasureHistory;
 import com.lifefit.soap.model.LifeStatus;
@@ -35,9 +36,15 @@ public class LifeFitImpl implements LifeFit {
 	}
 	
 	@Override
-	public List<Measure> readMeasureTypes(){
-		System.out.println("---> Getting list of measureTypes...");
-        List<Measure> measureType = Measure.getAll();
+	public List<Measure> readMeasureTypes(String param1){
+		System.out.println("---> Getting list of measureTypes... "+ param1);
+		List<Measure> measureType = null;
+		
+		if(param1.equalsIgnoreCase("goal"))
+        	measureType = Measure.getMeasureGoal();
+		else
+			measureType = Measure.getAll();
+        
         return measureType;
 	}
 	
@@ -60,23 +67,29 @@ public class LifeFitImpl implements LifeFit {
 	public boolean updatePersonGoal(Goal goal, int personId){
 		System.out.println("---> Updating goal with goalId = "+goal.getIdGoal());
 		
-		Goal existingGoal = Goal.getGoalById(goal.getIdGoal());
-		if(existingGoal == null){
-			return false;
-		}
-		else {
-			Person person = Person.getPersonById(personId);
-			Measure measure = Measure.getMeasureById(goal.getMeasure().getIdMeasure());
-			goal.setPerson(person);
-			goal.setMeasure(measure);
-						
-			Goal.updateGoal(goal);
-			return true;
-		}
+		Goal existingGoal = Goal.updateGoal(goal);
+		if(existingGoal == null)
+			return false;		
+		else 												
+			return true;		
+	}
+	
+	@Override
+	public boolean savePersonGoal(Goal goal, int personId){
+		System.out.println("---> Saving goal with personId = " + personId);
+		
+		Goal newGoal = Goal.saveGoal(goal);
+		if(newGoal == null)
+			return false;		
+		else 									
+			return true;		
 	}
 	
 	public boolean savePersonHealthMeasure(LifeStatus lifeStatus, int personId){
 		System.out.println("---> Save new LifeStatus with personId = "+ personId);
+		
+		Person person = Person.getPersonById(personId);
+		lifeStatus.setPerson(person);
 		
 		LifeStatus ls = LifeStatus.saveLifeStatus(lifeStatus);
 		if(ls != null)
@@ -98,7 +111,7 @@ public class LifeFitImpl implements LifeFit {
 	
 	public boolean deletePersonHealthMeasure(LifeStatus lifeStatus, int personId){
 		System.out.println("---> Delete LifeStatus with personId = "+ personId
-				+ " and idStatus = "+lifeStatus.getIdStatus());
+				+ " and idStatus = "+ lifeStatus.getIdStatus());
 		
 		if(LifeStatus.removeLifeStatus(lifeStatus))
 			return true;
@@ -140,5 +153,19 @@ public class LifeFitImpl implements LifeFit {
 		
 		LifeStatus lifeStatus = LifeStatus.getByMeasure(personId, measureId);
 		return lifeStatus;
+	}
+
+	@Override
+	public String getAPIConfigByName(String name) {
+		System.out.println("---> Get APIConfig for "+name);
+		
+		String endpoint = null;
+		
+		APIConfig apiConfig = APIConfig.getAPIConfigByName(name);
+		if(apiConfig != null){
+			endpoint = apiConfig.getEndpoint()+"?"+apiConfig.getParam1()+"&"+apiConfig.getParam2()+
+					"&"+apiConfig.getParam3();
+		}
+		return endpoint;
 	}
 }  

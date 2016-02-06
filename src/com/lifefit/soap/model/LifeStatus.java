@@ -119,7 +119,7 @@ public class LifeStatus implements Serializable {
 		    		.setParameter("idMeasure", idMeasure)
 		    		.getSingleResult();
 		}
-		catch(Exception e){e.printStackTrace();}
+		catch(Exception e){}
 		finally{
 			LifeFitDao.instance.closeConnections(em);
 		}

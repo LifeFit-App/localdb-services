@@ -63,7 +63,6 @@ public class Person implements Serializable {
 	@Column(name="password")
 	@XmlTransient
 	private String password;
-	
 	@OneToMany(mappedBy="person", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<LifeStatus> lifeStatus;
 	
@@ -155,15 +154,23 @@ public class Person implements Serializable {
 	}
 	
 	public static Person getPersonByEmailPass(String email, String pass) {
-		EntityManager em = LifeFitDao.instance.createEntityManager();		
-		//Refresh the entity manager
-        em.getEntityManagerFactory().getCache().evictAll();
-        
-		Person p = em.createNamedQuery("Person.getPersonByEmailPass", Person.class)
-				.setParameter("email", email.toLowerCase())
-				.setParameter("password", pass.toLowerCase())
-				.getSingleResult();
-		LifeFitDao.instance.closeConnections(em);
+		EntityManager em = null;
+		Person p = null;
+		
+		try{
+			em = LifeFitDao.instance.createEntityManager();		
+			//Refresh the entity manager
+	        em.getEntityManagerFactory().getCache().evictAll();
+	        
+			p = em.createNamedQuery("Person.getPersonByEmailPass", Person.class)
+					.setParameter("email", email.toLowerCase())
+					.setParameter("password", pass.toLowerCase())
+					.getSingleResult();
+		}
+		catch(Exception e){}
+		finally{
+			LifeFitDao.instance.closeConnections(em);
+		}
 		return p;
 	}
 	

@@ -8,8 +8,13 @@
 	</info>
 	
 	<dependencies>        
+        <!-- MySQL JDBC driver -->
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.6"/>            
+        
+        <!-- JAX-WS bundle dependency --> 
         <dependency org="com.sun.xml.ws" name="jaxws-rt" rev="2.2.8"/>
-        <dependency org="mysql" name="mysql-connector-java" rev="5.1.6"/>
+	
+        <!-- Other dependencies -->
         <dependency org="javax.ejb" name="javax.ejb-api" rev="3.2"/>
         <dependency org="org.eclipse.persistence" name="javax.persistence" rev="2.1.0"/>
         <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.jpa" rev="2.5.2"/>

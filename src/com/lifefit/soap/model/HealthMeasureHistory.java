@@ -1,7 +1,6 @@
 package com.lifefit.soap.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,15 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.lifefit.soap.dao.LifeFitDao;
-import com.lifefit.soap.util.DateAdapter;
 
 @Entity
 @Table(name="healthmeasurehistory")
@@ -45,9 +40,7 @@ public class HealthMeasureHistory implements Serializable {
 	private double value;
 	@Column
 	@XmlElement
-	@Temporal(TemporalType.TIMESTAMP)	
-	@XmlJavaTypeAdapter(DateAdapter.class)
-	private Date datetime;
+	private String datetime;
 	@ManyToOne
 	@JoinColumn(name="idPerson", referencedColumnName="idPerson")
 	private Person person;
@@ -73,11 +66,11 @@ public class HealthMeasureHistory implements Serializable {
 		this.value = value;
 	}
 	
-	public Date getDatetime() {
+	public String getDatetime() {
 		return datetime;
 	}
 
-	public void setDatetime(Date datetime) {
+	public void setDatetime(String datetime) {
 		this.datetime = datetime;
 	}
 
@@ -133,7 +126,7 @@ public class HealthMeasureHistory implements Serializable {
 		    		.setParameter("idMeasure", idMeasure)
 		    		.getResultList();
 		}
-		catch(Exception e){e.printStackTrace();}
+		catch(Exception e){}
 		finally{
 			LifeFitDao.instance.closeConnections(em);
 		}

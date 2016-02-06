@@ -34,7 +34,7 @@ public interface LifeFit {
 	
 	@WebMethod(operationName="getMeasureTypeList")
 	@WebResult(name="measureTypes")
-	public List<Measure> readMeasureTypes();
+	public List<Measure> readMeasureTypes(String param1);
 	
 	@WebMethod(operationName="getMeasureByName")
 	@WebResult(name="measure")
@@ -47,6 +47,11 @@ public interface LifeFit {
 	@WebMethod(operationName="updatePersonGoal")
 	@WebResult(name="status")
 	public boolean updatePersonGoal(@WebParam(name="goal") Goal goal,
+			@WebParam(name="personId") int personId);
+	
+	@WebMethod(operationName="savePersonGoal")
+	@WebResult(name="status")
+	public boolean savePersonGoal(@WebParam(name="goal") Goal goal,
 			@WebParam(name="personId") int personId);
 	
 	@WebMethod(operationName="savePersonHealthMeasure")
@@ -78,4 +83,8 @@ public interface LifeFit {
 	@WebResult(name="healthMeasure")
 	public LifeStatus getPersonHealthMeasureById(@WebParam(name="personId") int personId,
 			@WebParam(name="measureId") int measureId);
+	
+	@WebMethod(operationName="getAPIConfigByName")
+	@WebResult(name="endpoint")
+	public String getAPIConfigByName(@WebParam(name="name") String name);
 }

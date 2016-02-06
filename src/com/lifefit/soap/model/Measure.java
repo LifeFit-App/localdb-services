@@ -22,7 +22,9 @@ import javax.xml.bind.annotation.XmlElement;
 @NamedQueries({
 	@NamedQuery(name="Measure.findAll", query="SELECT m FROM Measure m"),
 	@NamedQuery(name="Measure.getMeasureByName", query="SELECT m FROM Measure m "
-			+ "WHERE LOWER(m.measureName) = :measureName")
+			+ "WHERE LOWER(m.measureName) = :measureName"),
+	@NamedQuery(name="Measure.getMeasureGoal", query="SELECT m FROM Measure m "
+			+ "WHERE m.goalFlag = 'Y'")
 })
 @XmlAccessorType(XmlAccessType.NONE)
 public class Measure implements Serializable {
@@ -38,6 +40,9 @@ public class Measure implements Serializable {
 	@Column
 	@XmlElement
 	private String measureType;
+	@Column
+	@XmlElement
+	private String goalFlag;
 	
 	public Measure(){}
 
@@ -69,6 +74,14 @@ public class Measure implements Serializable {
 		this.measureType = measureType;
 	}
 	
+	public String getGoalFlag() {
+		return goalFlag;
+	}
+
+	public void setGoalFlag(String goalFlag) {
+		this.goalFlag = goalFlag;
+	}
+
 	//Database operations
 	public static Measure getMeasureById(int personId) {
 		EntityManager em = LifeFitDao.instance.createEntityManager();		
@@ -90,6 +103,24 @@ public class Measure implements Serializable {
 	    return list;
 	}
 	
+	public static List<Measure> getMeasureGoal() {
+		EntityManager em = null;
+		List<Measure> list = null;
+		
+		try{
+			em = LifeFitDao.instance.createEntityManager();		
+			//Refresh the entity manager
+	        em.getEntityManagerFactory().getCache().evictAll();
+	        
+		    list = em.createNamedQuery("Measure.getMeasureGoal", Measure.class).getResultList();
+		}
+		catch(Exception e){}
+		finally{
+			LifeFitDao.instance.closeConnections(em);
+		}	
+	    return list;
+	}
+	
 	public static Measure getMeasureByName(String measureName) {
 		EntityManager em = null;
 		Measure measureDef = null;
@@ -103,7 +134,7 @@ public class Measure implements Serializable {
 		    		.setParameter("measureName", measureName)
 		    		.getSingleResult();
 		}
-		catch(Exception e){e.printStackTrace();}
+		catch(Exception e){}
 		finally{
 			LifeFitDao.instance.closeConnections(em);
 		}

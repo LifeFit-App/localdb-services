@@ -90,14 +90,22 @@ public class Goal implements Serializable {
 	}
 	
 	public static Goal getGoalByPersonId(int personId) {
-		EntityManager em = LifeFitDao.instance.createEntityManager();		
-		//Refresh the entity manager
-        em.getEntityManagerFactory().getCache().evictAll();
-        
-		Goal p = em.createNamedQuery("Goal.getGoalByPersonId", Goal.class)
-				.setParameter("idPerson", personId)
-				.getSingleResult();
-		LifeFitDao.instance.closeConnections(em);
+		EntityManager em = null;
+		Goal p = null;
+		
+		try{
+			em = LifeFitDao.instance.createEntityManager();		
+			//Refresh the entity manager
+	        em.getEntityManagerFactory().getCache().evictAll();
+	        
+			p = em.createNamedQuery("Goal.getGoalByPersonId", Goal.class)
+					.setParameter("idPerson", personId)
+					.getSingleResult();		
+		}
+		catch(Exception e){}
+		finally{
+			LifeFitDao.instance.closeConnections(em);
+		}
 		return p;
 	}
 	
