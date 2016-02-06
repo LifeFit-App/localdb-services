@@ -46,7 +46,7 @@ CREATE TABLE `apiconfig` (
 /*Data for the table `apiconfig` */
 
 insert  into `apiconfig`(`id`,`name`,`endpoint`,`param1`,`param2`,`param3`) values 
-(1,'STANDS4','http://www.stands4.com/services/v2/quotes.php','uid=4663','tokenid=RUs6LmD2APwQw81I','searchtype=SEARCH&query=health');
+(1,'STANDS4','http://www.stands4.com/services/v2/quotes.php','uid=${uid}','tokenid=${tokenid}','searchtype=SEARCH&query=health');
 
 /*Table structure for table `goal` */
 
