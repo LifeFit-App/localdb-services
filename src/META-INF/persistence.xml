@@ -17,15 +17,13 @@
             <property name="javax.persistence.jdbc.password" value="${password}" />
 			<property name="eclipselink.logging.level" value="INFO" />
 			<property name="eclipselink.target-database" value="Database" />
-			
-			<!-- eclipselink connection pool configuration -->
-			<property name="eclipselink.connection-pool.default.initial" value="5" />   
-			<property name="eclipselink.connection-pool.node2.min" value="5"/> 
-			<property name="eclipselink.connection-pool.node2.max" value="50"/>  
-			<property name="eclipselink.connection-pool.node2.wait" value="10000"/>
-			<property name="eclipselink.connection-pool.node2.url" value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_b1b6a6c4a8b6258"/>
-			<property name="eclipselink.connection-pool.node2.user" value="${user}" />
-            <property name="eclipselink.connection-pool.node2.password" value="${password}" />
+          
+          	<!-- hibernate c3p0 connection pooling configuration -->
+			<property name="hibernate.c3p0.min_size" value="5"/>
+			<property name="hibernate.c3p0.max_size" value="20"/>
+			<property name="hibernate.c3p0.timeout" value="300"/>
+			<property name="hibernate.c3p0.max_statements" value="50"/>
+			<property name="hibernate.c3p0.idle_test_period" value="3000"/>
 		</properties>
 	</persistence-unit>
 </persistence>
