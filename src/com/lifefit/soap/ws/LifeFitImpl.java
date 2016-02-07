@@ -102,6 +102,9 @@ public class LifeFitImpl implements LifeFit {
 		System.out.println("---> Update LifeStatus with personId = "+ personId
 				+ " and idStatus = "+lifeStatus.getIdStatus());
 		
+		Person person = Person.getPersonById(personId);
+		lifeStatus.setPerson(person);
+		
 		LifeStatus ls = LifeStatus.updateLifeStatus(lifeStatus);
 		if(ls != null)
 			return true;

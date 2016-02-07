@@ -13,10 +13,19 @@
 		<properties>  
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />                        
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_b1b6a6c4a8b6258?autoReconnect=true" />		
-            <property name="javax.persistence.jdbc.user" value="${userid}" />
+            <property name="javax.persistence.jdbc.user" value="${user}" />
             <property name="javax.persistence.jdbc.password" value="${password}" />
 			<property name="eclipselink.logging.level" value="INFO" />
-			<property name="eclipselink.target-database" value="Database" />    
+			<property name="eclipselink.target-database" value="Database" />
+			
+			<!-- eclipselink connection pool configuration -->
+			<property name="eclipselink.connection-pool.default.initial" value="5" />   
+			<property name="eclipselink.connection-pool.node2.min" value="5"/> 
+			<property name="eclipselink.connection-pool.node2.max" value="50"/>  
+			<property name="eclipselink.connection-pool.node2.wait" value="10000"/>
+			<property name="eclipselink.connection-pool.node2.url" value="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net/heroku_b1b6a6c4a8b6258"/>
+			<property name="eclipselink.connection-pool.node2.user" value="${user}" />
+            <property name="eclipselink.connection-pool.node2.password" value="${password}" />
 		</properties>
 	</persistence-unit>
 </persistence>
